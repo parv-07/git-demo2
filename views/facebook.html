@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Login with Facebook Business</title>
+  </head>
+  <body>
+    <h1>Hello Parv your are the best</h1>
+    <button onclick="loginWithFacebookBusiness()">
+      Login with Facebook Business
+    </button>
+    <button onclick="TwitterLogin()">Login with twitter</button>
+    <!-- <fb:login-button config_id="{config_id}" onlogin="checkLoginState();">
+    </fb:login-button> -->
+    <script>
+      // Facebook login fucntion
+      function checkLoginState() {
+        console.log('welcome parv');
+        FB.getLoginStatus(function (response) {
+          statusChangeCallback(response);
+        });
+      }
+      window.fbAsyncInit = function () {
+        FB.init({
+          appId: '264273222770430',
+          cookie: true,
+          xfbml: true,
+          version: 'v17.0',
+        });
+
+        FB.AppEvents.logPageView();
+      };
+
+      (function (d, s, id) {
+        var js,
+          fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {
+          return;
+        }
+        js = d.createElement(s);
+        js.id = id;
+        js.src = 'https://connect.facebook.net/en_US/sdk.js';
+        fjs.parentNode.insertBefore(js, fjs);
+      })(document, 'script', 'facebook-jssdk');
+
+      //  My login Function
+      function loginWithFacebookBusiness() {
+        // Redirect the user to the Facebook Business login route in your Nest.js application
+        window.location.href = '/auth/facebook/business';
+      }
+      function TwitterLogin() {
+        window.location.href = '/twitterAuth/twitter';
+      }
+    </script>
+  </body>
+</html>

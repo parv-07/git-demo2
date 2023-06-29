@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Facebook OAuth Example</title>
+  </head>
+  <body>
+    <h1>Facebook OAuth Example</h1>
+
+    <button onclick="redirectToFacebookLogin()">Log in with Facebook</button>
+
+    <script>
+      // Step 1: Redirect the user to the Facebook OAuth login page
+      function redirectToFacebookLogin() {
+        const clientId = '264273222770430'; // Replace with your actual Facebook App ID
+        const redirectUri = 'http://localhost:3000/callback'; // Replace with your actual redirect URI
+
+        const authUrl = `https://www.facebook.com/v14.0/dialog/oauth?client_id=${clientId}&redirect_uri=${redirectUri}&scope=email,page_events`;
+
+        window.location.href = authUrl;
+      }
+      function handleOAuthCallback() {
+        // Parse the URL query parameters to get the authorization code
+        const urlParams = new URLSearchParams(window.location.search);
+        const authorizationCode = urlParams.get('code');
+
+        // Make a request to exchange the authorization code for an access token
+        const clientId = 'YOUR_APP_ID'; // Replace with your actual Facebook App ID
+        const clientSecret = 'YOUR_APP_SECRET'; // Replace with your actual Facebook App Secret
+        const redirectUri = 'YOUR_REDIRECT_URI'; // Replace with your actual redirect URI
+
+        const tokenUrl = `https://graph.facebook.com/v14.0/oauth/access_token?client_id=${clientId}&redirect_uri=${redirectUri}&client_secret=${clientSecret}&code=${authorizationCode}`;
+
+        fetch(tokenUrl)
+          .then((response) => response.json())
+          .then((data) => {
+            const accessToken = data.access_token;
+            // Use the access token to make API requests or perform actions on behalf of the user
+            console.log('Access Token:', accessToken);
+          })
+          .catch((error) => {
+            console.error(
+              'Error exchanging authorization code for access token:',
+              error,
+            );
+          });
+      }
+    </script>
+  </body>
+</html>
